@@ -5,7 +5,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    background-color: #e4e4e4;
+    background-color: #f0f0f0;
 }
 
 .content {
@@ -108,4 +108,5 @@ body {
 
 .content h3{
     font-size: 28px;
+    color: #222222;
 }
