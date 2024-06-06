@@ -20,6 +20,44 @@
         </ul>
     </nav>
 
+    <div class="content">
+        <h3><i class="fas fa-bus"></i> Bus </h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>id_bus</th>
+                    <th>nomor_polisi</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        var daftarItemContainer = document.getElementById("tbody");
+
+        fetch('http://localhost/UAP_WEB/database/supir/getAll.php')
+            .then(response => response.json())
+            .then(data => {
+
+                data.forEach(function (item) {
+
+                    var content = `
+                    <tr>
+                        <td>${item.id_bus}</td>
+                        <td>${item.nomor_polisi}</td>
+                    </tr>
+                    `;
+
+                    daftarItemContainer.innerHTML = content;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+
 </body>
 
 </html>
