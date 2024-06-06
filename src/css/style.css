@@ -103,10 +103,10 @@ body {
     color: #ffffff;
     text-align: center;
     border-radius: 8px;
-    background-image: url('/image/bg.jpg');
+    background-image: url('../../image/bg.jpg');
 }
 
-.content h3{
+.content h3 {
     font-size: 28px;
     color: #222222;
 }
