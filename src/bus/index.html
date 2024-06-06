@@ -20,6 +20,48 @@
         </ul>
     </nav>
 
+    <div class="content">
+        <a href="bis.php" class="btn btn-secondary mb-3">Tambah Data</a>
+        <h3><i class="fas fa-bus"></i> Bus </h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>id_bus</th>
+                    <th>nomor_polisi</th>
+                    <th>kapasitas</th>
+                    <th>model</th>
+                    <th>tahun_pembuatan</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        var daftarItemContainer = document.getElementById("tbody");
+
+        fetch('http://localhost/uap_web/database/bus/bis.php')
+            .then(response => response.json())
+            .then(data => {
+
+                data.forEach(function (item) {
+
+                    var content = `
+                    <tr>
+                        <td>${item.id_bus}</td>
+                        <td>${item.nomor_polisi}</td>
+                    </tr>
+                    `;
+
+                    daftarItemContainer.innerHTML = content;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+
 </body>
 
 </html>
