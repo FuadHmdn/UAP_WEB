@@ -61,8 +61,7 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #eeb6f3;
-    color: #ffffff;
+    background-color: #f0c0f7;
 }
 
 .sidebar ul li a.active {
@@ -137,5 +136,5 @@ body {
 }
 
 .content tr:hover {
-    background-color: #eeb6f3;
+    background-color: #f1d2f5;
 }

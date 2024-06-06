@@ -7,6 +7,42 @@
     <title>Dashboard</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .content h3 {
+            font-size: 28px;
+            color: #222222;
+        }
+
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .content th,
+        .content td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        .content th {
+            background-color: #d43de2;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .content tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .content tr:hover {
+            background-color: #f1d2f5;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,34 +69,39 @@
                     <th>umur</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>John Doe</td>
-                    <td>Jl. Merpati No. 12</td>
-                    <td>081234567890</td>
-                    <td>1234567890</td>
-                    <td>35</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jane Smith</td>
-                    <td>Jl. Kenari No. 34</td>
-                    <td>082345678901</td>
-                    <td>0987654321</td>
-                    <td>40</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Robert Johnson</td>
-                    <td>Jl. Cendrawasih No. 56</td>
-                    <td>083456789012</td>
-                    <td>1122334455</td>
-                    <td>29</td>
-                </tr>
-                <!-- Add more rows as needed -->
+            <tbody id="tbody">
+
             </tbody>
         </table>
-    </div </body>
+    </div>
+
+    <script>
+
+        var daftarItemContainer = document.getElementById("tbody");
+
+        fetch('http://localhost/UAP_WEB/database/supir/getAll.php')
+            .then(response => response.json())
+            .then(data => {
+
+                data.forEach(function (item) {
+
+                    var content = `
+                    <tr>
+                        <td>${item.id_supir}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.alamat}</td>
+                        <td>${item.no_telpon}</td>
+                        <td>${item.no_sim}</td>
+                        <td>${item.umur}</td>
+                    </tr>
+                    `;
+
+                    daftarItemContainer.innerHTML = content;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+
+</body>
 
 </html>
