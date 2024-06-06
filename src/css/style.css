@@ -61,12 +61,12 @@ body {
 }
 
 .sidebar ul li a:hover {
-    background-color: #e550eb;
+    background-color: #eeb6f3;
     color: #ffffff;
 }
 
 .sidebar ul li a.active {
-    background-color: #e550eb;
+    background-color: #d43de2;
     font-weight: bold;
     color: #ffffff;
 }
@@ -109,4 +109,33 @@ body {
 .content h3 {
     font-size: 28px;
     color: #222222;
+}
+
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.content th,
+.content td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.content th {
+    background-color: #d43de2;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.content tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content tr:hover {
+    background-color: #eeb6f3;
 }
