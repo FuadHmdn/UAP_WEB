@@ -10,9 +10,14 @@
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
         .sidebar {
             height: 100vh;
-            background-color: #f8f9fa;
+            background-color: #fff;
             padding-top: 20px;
             border-right: 1px solid #dee2e6;
         }
@@ -21,6 +26,7 @@
             color: #343a40;
             text-align: center;
             margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
         .sidebar ul {
@@ -29,8 +35,14 @@
         }
 
         .sidebar ul li {
-            padding: 10px;
+            padding: 7px;
         }
+
+        .sidebar a.nav-link {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
 
         .sidebar ul li a {
             color: #495057;
@@ -38,10 +50,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         .sidebar ul li a.active,
         .sidebar ul li a:hover {
+            background-color: #e9ecef;
             color: #007bff;
         }
 
@@ -53,12 +69,55 @@
             color: #007bff;
             background-color: #f8f9fa;
         }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .main-content h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        .table thead {
+            background-color: #e9ecef;
+        }
+
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .modal-content {
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            border-bottom: none;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+        }
+
+        .btn-close:hover {
+            color: #007bff;
+        }
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
+
+            <!-- Navigasi -->
             <nav class="col-md-3 col-lg-2 d-md-block sidebar">
                 <h2>Expedia</h2>
                 <ul class="navbar-nav">
@@ -94,9 +153,11 @@
                     </li>
                 </ul>
             </nav>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <h2>Supir</h2>
-                <div class="d-flex justify-content-end mb-3">
+
+            <!-- Main -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-3 ">
+                <div class="d-flex justify-content-between align-items-center mb-3" style=" margin-top: 60px;">
+                    <h2 class="title ">Supir</h2>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSupirModal">
                         <i class="fas fa-plus"></i> Tambah Supir
                     </button>
@@ -169,7 +230,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="editSupirForm">
                         <div class="mb-3">
                             <label for="editIdSupir" class="form-label">ID Supir</label>
                             <input type="text" class="form-control" id="editIdSupir" name="editIdSupir" readonly>
@@ -180,7 +241,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="editAlamatSupir" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" id="editAlamatSupir" value="editAlamatSupir">
+                            <input type="text" class="form-control" id="editAlamatSupir" name="editAlamatSupir">
                         </div>
                         <div class="mb-3">
                             <label for="editNoTelponSupir" class="form-label">No Telpon</label>
@@ -274,7 +335,7 @@
         }
 
         // Edit data
-        document.getElementById('editSupirModal').querySelector('form').addEventListener('submit', function (event) {
+        document.getElementById('editSupirForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
             const formData = new FormData(this);
@@ -294,9 +355,6 @@
                 })
                 .catch(error => console.error('Error:', error));
         });
-
-
-        // Fungsi // Edit data
         function editSupir(id, nama, alamat, no_telpon, no_sim, umur) {
             document.getElementById('editIdSupir').value = id;
             document.getElementById('editNamaSupir').value = nama;
