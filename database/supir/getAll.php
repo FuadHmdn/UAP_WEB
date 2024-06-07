@@ -1,6 +1,6 @@
 <?php
 
-require_once ('../connn.php');
+require_once ('../koneksi.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $sql = "SELECT * FROM `supir`";

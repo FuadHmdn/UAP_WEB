@@ -95,14 +95,239 @@
                 </ul>
             </nav>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                <!-- Main content goes here -->
+                <h2>Supir</h2>
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSupirModal">
+                        <i class="fas fa-plus"></i> Tambah Supir
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID Supir</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>No Telpon</th>
+                                <th>No SIM</th>
+                                <th>Umur</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="supirTableBody">
+
+                        </tbody>
+                    </table>
+                </div>
             </main>
         </div>
     </div>
 
+    <!-- Modal Tambah Supir -->
+    <div class="modal fade" id="addSupirModal" tabindex="-1" aria-labelledby="addSupirModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSupirModalLabel">Tambah Supir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="namaSupir" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="namaSupir" name="namaSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamatSupir" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamatSupir" name="alamatSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="noTelponSupir" class="form-label">No Telpon</label>
+                            <input type="text" class="form-control" id="noTelponSupir" name="noTelponSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="noSimSupir" class="form-label">No SIM</label>
+                            <input type="text" class="form-control" id="noSimSupir" name="noSimSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="umurSupir" class="form-label">Umur</label>
+                            <input type="text" class="form-control" id="umurSupir" name="umurSupir">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Supir -->
+    <div class="modal fade" id="editSupirModal" tabindex="-1" aria-labelledby="editSupirModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editSupirModalLabel">Edit Supir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="editIdSupir" class="form-label">ID Supir</label>
+                            <input type="text" class="form-control" id="editIdSupir" name="editIdSupir" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNamaSupir" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="editNamaSupir" name="editNamaSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAlamatSupir" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="editAlamatSupir" value="editAlamatSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNoTelponSupir" class="form-label">No Telpon</label>
+                            <input type="text" class="form-control" id="editNoTelponSupir" name="editNoTelponSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNoSimSupir" class="form-label">No SIM</label>
+                            <input type="text" class="form-control" id="editNoSimSupir" name="editNoSimSupir">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUmurSupir" class="form-label">Umur</label>
+                            <input type="text" class="form-control" id="editUmurSupir" name="editUmurSupir">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Hapus Supir -->
+    <div class="modal fade" id="deleteSupirModal" tabindex="-1" aria-labelledby="deleteSupirModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteSupirModalLabel">Hapus Supir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus data supir ini?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger hapus">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+
+    <script>
+        // menampilkan data
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost/UAP_WEB/database/supir/getAll.php')
+                .then(response => response.json())
+                .then(data => {
+                    const supirTableBody = document.getElementById('supirTableBody');
+                    data.forEach(supir => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                                <td>${supir.id_supir}</td>
+                                <td>${supir.nama}</td>
+                                <td>${supir.alamat}</td>
+                                <td>${supir.no_telpon}</td>
+                                <td>${supir.no_sim}</td>
+                                <td>${supir.umur}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editSupirModal" onclick="editSupir(${supir.id_supir}, '${supir.nama}', '${supir.alamat}', '${supir.no_telpon}', '${supir.no_sim}', ${supir.umur})">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteSupirModal" onclick="deleteSupir(${supir.id_supir})">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </td>
+                            `;
+                        supirTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+        // hapus data
+        function deleteSupir(id_supir) {
+            document.getElementById('deleteSupirModal').querySelector('.hapus').onclick = function () {
+                fetch(`http://localhost/UAP_WEB/database/supir/deleteSupir.php?id_supir=${id_supir}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Gagal menghapus item');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            };
+        }
+
+        // Edit data
+        document.getElementById('editSupirModal').querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const url = 'http://localhost/UAP_WEB/database/supir/editSupir.php';
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Gagal menghapus item: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+
+        // Fungsi // Edit data
+        function editSupir(id, nama, alamat, no_telpon, no_sim, umur) {
+            document.getElementById('editIdSupir').value = id;
+            document.getElementById('editNamaSupir').value = nama;
+            document.getElementById('editAlamatSupir').value = alamat;
+            document.getElementById('editNoTelponSupir').value = no_telpon;
+            document.getElementById('editNoSimSupir').value = no_sim;
+            document.getElementById('editUmurSupir').value = umur;
+        }
+
+
+        // Tambah supir
+        document.getElementById('addSupirModal').querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('http://localhost/UAP_WEB/database/supir/addSupir.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Gagal menambah supir: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => console.error('Error adding data:', error));
+        });
+
+    </script>
 </body>
 
 </html>
