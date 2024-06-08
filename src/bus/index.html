@@ -66,6 +66,8 @@
 <body>
     <div class="container-fluid">
         <div class="row">
+
+            <!-- Navigasi -->
             <nav class="col-md-3 col-lg-2 d-md-block sidebar">
                 <h2>Expedia</h2>
                 <ul class="navbar-nav">
@@ -101,15 +103,227 @@
                     </li>
                 </ul>
             </nav>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
+            <!-- Main -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-3 ">
+                <div class="d-flex justify-content-between align-items-center mb-3" style=" margin-top: 60px;">
+                    <h2 class="title ">Bus</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBusModal">
+                        <i class="fas fa-plus"></i> Tambah Bus
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID Bus</th>
+                                <th>Nomor Polisi</th>
+                                <th>Kapasitas</th>
+                                <th>Model</th>
+                                <th>Tahun Pembuatan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="busTableBody">
+
+                        </tbody>
+                    </table>
+                </div>
             </main>
         </div>
     </div>
 
+    <!-- Modal Tambah Bus -->
+    <div class="modal fade" id="addBusModal" tabindex="-1" aria-labelledby="addBusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addBusModalLabel">Tambah Bus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="nomorPolisi" class="form-label">Nomor Polisi</label>
+                            <input type="text" class="form-control" id="nomorPolisi" name="nomorPolisi">
+                        </div>
+                        <div class="mb-3">
+                            <label for="kapasitas" class="form-label">Kapasitas</label>
+                            <input type="text" class="form-control" id="kapasitas" name="kapasitas">
+                        </div>
+                        <div class="mb-3">
+                            <label for="model" class="form-label">Model</label>
+                            <input type="text" class="form-control" id="model" name="model">
+                        </div>
+                        <div class="mb-3">
+                            <label for="tahunPembuatan" class="form-label">Tahun Pembuatan</label>
+                            <input type="date" class="form-control" id="tahunPembuatan" name="tahunPembuatan">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit BUS -->
+    <div class="modal fade" id="editBusModal" tabindex="-1" aria-labelledby="editBusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editBusModalLabel">Edit Bus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editBusForm">
+                        <div class="mb-3">
+                            <label for="editIdBus" class="form-label">ID Bus</label>
+                            <input type="text" class="form-control" id="editIdBus" name="editIdBus" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNomorPolisi" class="form-label">Nomor Polisi</label>
+                            <input type="text" class="form-control" id="editNomorPolisi" name="editNomorPolisi">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editKapasitas" class="form-label">Kapasitas</label>
+                            <input type="text" class="form-control" id="editKapasitas" name="editKapasitas">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editModel" class="form-label">Model</label>
+                            <input type="text" class="form-control" id="editModel" name="editModel">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTahunPembuatan" class="form-label">Tahun Pembuatan</label>
+                            <input type="date" class="form-control" id="editTahunPembuatan" name="editTahunPembuatan">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Hapus BUS -->
+    <div class="modal fade" id="deleteBusModal" tabindex="-1" aria-labelledby="deleteBusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteBusModalLabel">Delete Bus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus data bus ini?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger hapus">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+
+    <script>
+        // menampilkan data
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost/UAP_WEB/database/bus/getAll.php')
+                .then(response => response.json())
+                .then(data => {
+                    const busTableBody = document.getElementById('busTableBody');
+                    data.forEach(bus => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                                <td>${bus.id_bus}</td>
+                                <td>${bus.nomor_polisi}</td>
+                                <td>${bus.kapasitas}</td>
+                                <td>${bus.model}</td>
+                                <td>${bus.tahun_pembuatan}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editBusModal" onclick="editBus(${bus.id_bus}, '${bus.nomor_polisi}', '${bus.kapasitas}', '${bus.model}', '${bus.tahun_pembuatan}')">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteBusModal" onclick="deleteBus(${bus.id_bus})">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </td>
+                            `;
+                        busTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+        // hapus data
+        function deleteBus(id_bus) {
+            document.getElementById('deleteBusModal').querySelector('.hapus').onclick = function () {
+                fetch(`http://localhost/UAP_WEB/database/bus/deleteBus.php?id_bus=${id_bus}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Gagal menghapus item');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            };
+        }
+
+        // Edit data
+        document.getElementById('editBusForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const url = 'http://localhost/UAP_WEB/database/bus/editBus.php';
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Gagal menghapus item: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+        function editBus(id, nomor_polisi, kapasitas, model, tahun_pembuatan) {
+            document.getElementById('editIdBus').value = id;
+            document.getElementById('editNomorPolisi').value = nomor_polisi;
+            document.getElementById('editKapasitas').value = kapasitas;
+            document.getElementById('editModel').value = model;
+            document.getElementById('editTahunPembuatan').value = tahun_pembuatan;
+        }
+
+
+        // Tambah Bus
+        document.getElementById('addBusModal').querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('http://localhost/UAP_WEB/database/bus/addBus.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Gagal menambah bus: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => console.error('Error adding data:', error));
+        });
+
+    </script>
 </body>
 
 </html>
