@@ -33,6 +33,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // Pengecekan apakah email sudah terdaftar
+    $sql_check_email = "SELECT email FROM admin WHERE email = ?";
+    if ($stmt_check = mysqli_prepare($connection, $sql_check_email)) {
+        mysqli_stmt_bind_param($stmt_check, "s", $email);
+        mysqli_stmt_execute($stmt_check);
+        mysqli_stmt_store_result($stmt_check);
+
+        if (mysqli_stmt_num_rows($stmt_check) > 0) {
+            echo "<script>alert('Email sudah terdaftar.'); window.history.back();</script>";
+            exit;
+        }
+
+        mysqli_stmt_close($stmt_check);
+    } else {
+        echo "<script>alert('Error checking email: " . mysqli_error($connection) . "'); window.history.back();</script>";
+        exit;
+    }
+
     // Menyimpan data ke database
     $sql = "INSERT INTO admin (name, email, password, phone, address, profile_picture) VALUES (?, ?, ?, ?, ?, ?)";
     if ($stmt = mysqli_prepare($connection, $sql)) {
@@ -45,15 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>alert('Error: " . mysqli_error($connection) . "'); window.history.back();</script>";
             exit;
         }
-
-        mysqli_stmt_close($stmt);
     } else {
         echo "<script>alert('Error preparing statement: " . mysqli_error($connection) . "'); window.history.back();</script>";
         exit;
     }
-
-    mysqli_close($connection);
 }
+mysqli_close($connection);
 ?>
 
 
