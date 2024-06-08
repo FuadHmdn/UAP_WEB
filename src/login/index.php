@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['admin_id'] = $id;
                 $_SESSION['admin_name'] = $name;
 
-                echo "<script>alert('Login Berhasil. Alihkan ke dashboard...'); window.location.href = '../home/index.php';</script>";
+                echo "<script>alert('Login Berhasil. Alihkan ke dashboard...'); window.location.href = '../home/index.html?id=$id';</script>";
                 exit;
             } else {
                 // Password salah
@@ -119,7 +119,7 @@ mysqli_close($connection);
             </div>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="register/index.html">Sign Up</a></p>
+                <p>Don't have an account? <a href="register/index.php">Sign Up</a></p>
             </div>
         </form>
     </div>

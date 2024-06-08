@@ -179,7 +179,7 @@ mysqli_close($connection);
             </div>
         </form>
         <div class="login-link">
-            <p>Already have an account? <a href="../index.html">Login</a></p>
+            <p>Already have an account? <a href="../index.php">Login</a></p>
         </div>
     </div>
 
