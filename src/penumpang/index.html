@@ -60,13 +60,14 @@
             background-color: #e9ecef;
             color: #007bff;
         }
-        
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
+
+            <!-- Navigasi -->
             <nav class="col-md-3 col-lg-2 d-md-block sidebar">
                 <h2>Expedia</h2>
                 <ul class="navbar-nav">
@@ -102,15 +103,239 @@
                     </li>
                 </ul>
             </nav>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                
+
+            <!-- Main -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-3 ">
+                <div class="d-flex justify-content-between align-items-center mb-3" style=" margin-top: 60px;">
+                    <h2 class="title ">Penumpang</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPenumpangModal">
+                        <i class="fas fa-plus"></i> Tambah Penumpang
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>ID Penumpang</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>No Telpon</th>
+                                <th>Email</th>
+                                <th>Umur</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="penumpangTableBody">
+
+                        </tbody>
+                    </table>
+                </div>
             </main>
         </div>
     </div>
 
+    <!-- Modal Tambah Penumpang -->
+    <div class="modal fade" id="addPenumpangModal" tabindex="-1" aria-labelledby="addPenumpangModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPenumpangModalLabel">Tambah Penumpang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="namaPenumpang" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="namaPenumpang" name="namaPenumpang">
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamatPenumpang" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamatPenumpang" name="alamatPenumpang">
+                        </div>
+                        <div class="mb-3">
+                            <label for="noTelponPenumpang" class="form-label">No Telpon</label>
+                            <input type="text" class="form-control" id="noTelponPenumpang" name="noTelponPenumpang">
+                        </div>
+                        <div class="mb-3">
+                            <label for="noSimEmail" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="noSimEmail" name="noSimEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="umurPenumpang" class="form-label">Umur</label>
+                            <input type="text" class="form-control" id="umurPenumpang" name="umurPenumpang">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Penumpang -->
+    <div class="modal fade" id="editPenumpangModal" tabindex="-1" aria-labelledby="editPenumpangModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPenumpangModalLabel">Edit Penumpang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editPenumpangForm">
+                        <div class="mb-3">
+                            <label for="editIdPenumpang" class="form-label">ID Penumpang</label>
+                            <input type="text" class="form-control" id="editIdPenumpang" name="editIdPenumpang" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNamaPenumpang" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="editNamaPenumpang" name="editNamaPenumpang">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAlamatPenumpang" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="editAlamatPenumpang" name="editAlamatPenumpang">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNoTeleponPenumpang" class="form-label">No Telpon</label>
+                            <input type="text" class="form-control" id="editNoTeleponPenumpang" name="editNoTeleponPenumpang">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="editEmail" name="editEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editUmurPenumpang" class="form-label">Umur</label>
+                            <input type="text" class="form-control" id="editUmurPenumpang" name="editUmurPenumpang">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Hapus Penumpang -->
+    <div class="modal fade" id="deletePenumpangModal" tabindex="-1" aria-labelledby="deletePenumpangModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePenumpangModalLabel">Delete Penumpang</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus data penumpang ini?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger hapus">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+
+    <script>
+        // menampilkan data
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost/UAP_WEB/database/penumpang/getAll.php')
+                .then(response => response.json())
+                .then(data => {
+                    const penumpangTableBody = document.getElementById('penumpangTableBody');
+                    data.forEach(penumpang => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                                <td>${penumpang.id_penumpang}</td>
+                                <td>${penumpang.nama}</td>
+                                <td>${penumpang.alamat}</td>
+                                <td>${penumpang.nomor_telepon}</td>
+                                <td>${penumpang.email}</td>
+                                <td>${penumpang.umur}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editPenumpangModal" onclick="editPenumpang(${penumpang.id_penumpang}, '${penumpang.nama}', '${penumpang.alamat}', '${penumpang.nomor_telepon}', '${penumpang.email}', ${penumpang.umur})">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePenumpangModal" onclick="deletePenumpang(${penumpang.id_penumpang})">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </td>
+                            `;
+                        penumpangTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+
+        // hapus data
+        function deletePenumpang(id_penumpang) {
+            document.getElementById('deletePenumpangModal').querySelector('.hapus').onclick = function () {
+                fetch(`http://localhost/UAP_WEB/database/penumpang/deletePenumpang.php?id_penumpang=${id_penumpang}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Gagal menghapus item');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            };
+        }
+
+        // Edit data
+        document.getElementById('editPenumpangForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const url = 'http://localhost/UAP_WEB/database/penumpang/editPenumpang.php';
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Gagal menghapus item: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+        function editPenumpang(id, nama, alamat, nomor_telepon, email, umur) {
+            document.getElementById('editIdPenumpang').value = id;
+            document.getElementById('editNamaPenumpang').value = nama;
+            document.getElementById('editAlamatPenumpang').value = alamat;
+            document.getElementById('editNoTeleponPenumpang').value = nomor_telepon;
+            document.getElementById('editEmail').value = email;
+            document.getElementById('editUmurPenumpang').value = umur;
+        }
+
+
+        // Tambah penumpang
+        document.getElementById('addPenumpangModal').querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('http://localhost/UAP_WEB/database/penumpang/addPenumpang.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Gagal menambah penumpang: ' + (data.message || 'Unknown error'));
+                    }
+                })
+                .catch(error => console.error('Error adding data:', error));
+        });
+
+    </script>
 </body>
 
 </html>
