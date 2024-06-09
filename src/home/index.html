@@ -124,7 +124,7 @@
         }
 
         .menu-box:hover {
-            background-color: #55a7ff;
+            background-color: #99bfe7;
         }
 
         .recent-activity-title {
@@ -242,30 +242,13 @@
                     <thead>
                         <tr>
                             <th scope="col">Nama</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">Email/Phone/No Polisi</th>
                             <th scope="col">Joined</th>
                             <th scope="col">Type</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>johndoe@example.com</td>
-                            <td>2023-01-01</td>
-                            <td>Admin</td>
-                        </tr>
-                        <tr>
-                            <td>Jane Smith</td>
-                            <td>janesmith@example.com</td>
-                            <td>2023-02-15</td>
-                            <td>User</td>
-                        </tr>
-                        <tr>
-                            <td>Michael Brown</td>
-                            <td>michaelbrown@example.com</td>
-                            <td>2023-03-10</td>
-                            <td>User</td>
-                        </tr>
+                    <tbody id="activityTableBody">
+
                     </tbody>
                 </table>
             </main>
@@ -286,9 +269,27 @@
                     document.getElementById('jumlah_bus').innerText = data.jumlah_bus;
                 })
                 .catch(error => console.error('Error fetching data:', error));
-        });
 
+            fetch('http://localhost/UAP_WEB/database/dashboard/getRecentActivity.php')
+                .then(response => response.json())
+                .then(data => {
+                    const activityTableBody = document.getElementById('activityTableBody');
+                    activityTableBody.innerHTML = '';
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.name}</td>
+                            <td>${item.contact ? item.contact : 'N/A'}</td>
+                            <td>${item.joined}</td>
+                            <td>${item.type}</td>
+                        `;
+                        activityTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching recent activities:', error));
+        });
     </script>
+
 </body>
 
 </html>
