@@ -110,6 +110,40 @@
         .btn-close:hover {
             color: #007bff;
         }
+
+        .pagination {
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .pagination button {
+            background-color: transparent;
+            color: #007bff;
+            border: none;
+            padding: 5px 10px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .pagination button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-container img {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .title-container h2 {
+            margin-top: 20px
+        }
     </style>
 </head>
 
@@ -119,7 +153,10 @@
 
             <!-- Navigasi -->
             <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-                <h2>Expedia</h2>
+                <div class="title-container">
+                    <img src="../../image/logo.png" alt="Expedia Logo">
+                    <h2 class="title">Expedia</h2>
+                </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="../home/index.html" class="nav-link">
@@ -156,8 +193,8 @@
 
             <!-- Main -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-3 ">
-                <div class="d-flex justify-content-between align-items-center mb-3" style=" margin-top: 60px;">
-                    <h2 class="title ">Supir</h2>
+                <div class="d-flex justify-content-between align-items-center mb-3" style=" margin-top: 20px;">
+                    <h2 class="title"><i class="fas fa-user-tie"></i> Supir</h2>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSupirModal">
                         <i class="fas fa-plus"></i> Tambah Supir
                     </button>
@@ -179,6 +216,10 @@
 
                         </tbody>
                     </table>
+                </div>
+                <div class="pagination">
+                    <button id="prevPageBtn" class="btn btn-primary">&laquo; Sebelumnya</button>
+                    <button id="nextPageBtn" class="btn btn-primary">Berikutnya &raquo;</button>
                 </div>
             </main>
         </div>
@@ -383,6 +424,70 @@
                     }
                 })
                 .catch(error => console.error('Error adding data:', error));
+        });
+
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const itemsPerPage = 15;
+            let currentPage = 1;
+            let data = [];
+
+            // Fungsi untuk menampilkan data berdasarkan halaman yang dipilih
+            function displayData(page) {
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const paginatedData = data.slice(startIndex, endIndex);
+
+                const penumpangTableBody = document.getElementById('supirTableBody');
+                penumpangTableBody.innerHTML = '';
+
+                paginatedData.forEach(supir => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                                <td>${supir.id_supir}</td>
+                                <td>${supir.nama}</td>
+                                <td>${supir.alamat}</td>
+                                <td>${supir.no_telpon}</td>
+                                <td>${supir.no_sim}</td>
+                                <td>${supir.umur}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editSupirModal" onclick="editSupir(${supir.id_supir}, '${supir.nama}', '${supir.alamat}', '${supir.no_telpon}', '${supir.no_sim}', ${supir.umur})">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteSupirModal" onclick="deleteSupir(${supir.id_supir})">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </td>`;
+                    penumpangTableBody.appendChild(row);
+                });
+            }
+
+            // Fetch data dari server
+            fetch('http://localhost/UAP_WEB/database/supir/getAll.php')
+                .then(response => response.json())
+                .then(responseData => {
+                    data = responseData;
+                    displayData(currentPage);
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+            // Fungsi untuk menampilkan halaman berikutnya
+            document.getElementById('nextPageBtn').addEventListener('click', function () {
+                if (currentPage < Math.ceil(data.length / itemsPerPage)) {
+                    currentPage++;
+                    displayData(currentPage);
+                }
+            });
+
+            // Fungsi untuk menampilkan halaman sebelumnya
+            document.getElementById('prevPageBtn').addEventListener('click', function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    displayData(currentPage);
+                }
+            });
         });
 
     </script>
