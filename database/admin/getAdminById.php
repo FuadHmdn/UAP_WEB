@@ -3,7 +3,7 @@
 require_once ('../koneksi.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $sql = "SELECT * FROM `admin`";
+    $sql = "SELECT * FROM `admin` WHERE id=";
 
     $result = mysqli_query($connection, $sql);
 
