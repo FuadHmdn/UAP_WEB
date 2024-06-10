@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body,
@@ -54,7 +54,6 @@
             height: 32px;
             bottom: 12px;
             right: 18px;
-            ;
             background: rgba(0, 0, 0, 0.7);
             color: white;
             border-radius: 50%;
@@ -78,43 +77,43 @@
                 <div class="profile-picture">
                     <img src="https://via.placeholder.com/150" alt="Profile Picture" id="profileImg">
                     <div class="edit-icon" onclick="document.getElementById('profileInput').click();">
-                        <i class="fas fa-camera" style="align-self: center;"></i>
+                        <i class="fas fa-camera"></i>
                     </div>
-                    <input type="file" id="profileInput" style="display: none;" onchange="updateProfilePicture(event)">
+                    <input type="file" id="profileInput" style="display: none;" name="profile_picture" onchange="updateProfilePicture(event)">
                 </div>
             </div>
-            <form>
+            <form id="profileForm">
                 <div class="row mt-4">
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="userId" class="form-label">ID</label>
-                            <input type="text" class="form-control" id="userId" readonly>
+                            <input type="text" class="form-control" id="userId" name="id" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="userName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="userName" disabled>
+                            <input type="text" class="form-control" id="userName" name="name" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="userEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="userEmail" disabled>
+                            <input type="email" class="form-control" id="userEmail" name="email" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="userPhone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" id="userPhone" disabled>
+                            <input type="text" class="form-control" id="userPhone" name="phone" disabled>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label for="userAddress" class="form-label">Address</label>
-                            <textarea class="form-control" id="userAddress" rows="2" disabled></textarea>
+                            <textarea class="form-control" id="userAddress" name="address" rows="2" disabled></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="text-center">
                     <button type="button" class="btn btn-primary w-50" id="editButton" onclick="enableEditing()">Edit</button>
-                    <button type="submit" class="btn btn-success w-50" id="saveButton" style="display: none;">Save</button>
+                    <button type="button" class="btn btn-success w-50" id="saveButton" style="display: none;" onclick="saveProfile()">Save</button>
                 </div>
             </form>
         </div>
@@ -123,12 +122,30 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             function updateProfilePicture(event) {
-                const reader = new FileReader();
-                reader.onload = function() {
-                    const img = document.getElementById('profileImg');
-                    img.src = reader.result;
-                }
-                reader.readAsDataURL(event.target.files[0]);
+                const fileInput = event.target;
+                const formData = new FormData();
+                formData.append('profile_picture', fileInput.files[0]);
+                formData.append('id', document.getElementById('userId').value);
+
+                fetch('http://localhost/UAP_WEB/database/admin/updateFoto.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Profile picture updated successfully');
+                            const reader = new FileReader();
+                            reader.onload = function() {
+                                const img = document.getElementById('profileImg');
+                                img.src = reader.result;
+                            }
+                            reader.readAsDataURL(fileInput.files[0]);
+                        } else {
+                            alert('Error updating profile picture: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error updating profile picture:', error));
             }
 
             function enableEditing() {
@@ -141,7 +158,7 @@
             }
 
             function fetchProfileData() {
-                fetch(`http://localhost/UAP_WEB/database/getAdminById.php?id=<?php echo htmlspecialchars($_GET['id']); ?>`)
+                fetch(`http://localhost/UAP_WEB/database/admin/getAdminById.php?id=<?php echo htmlspecialchars($_GET['id']); ?>`)
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('userId').value = data.id;
@@ -149,13 +166,35 @@
                         document.getElementById('userEmail').value = data.email;
                         document.getElementById('userPhone').value = data.phone;
                         document.getElementById('userAddress').value = data.address;
+                        if (data.profile_picture) {
+                            document.getElementById('profileImg').src = data.profile_picture;
+                        }
                     })
                     .catch(error => console.error('Error fetching profile data:', error));
             }
 
-            window.updateProfilePicture = updateProfilePicture;
+            function saveProfile() {
+                const formData = new FormData(document.getElementById('profileForm'));
+                fetch('http://localhost/UAP_WEB/database/admin/editAdmin.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Profile updated successfully');
+                            location.reload();
+                        } else {
+                            alert('Error updating profile: ' + data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error updating profile:', error));
+            }
 
+            window.updateProfilePicture = updateProfilePicture;
             window.enableEditing = enableEditing;
+            window.saveProfile = saveProfile;
+
             fetchProfileData();
         });
     </script>
