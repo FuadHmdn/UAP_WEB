@@ -12,7 +12,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #FAF6F6;
         }
 
         .sidebar {
@@ -91,12 +91,13 @@
         }
 
         .info-box h4 {
-            margin-bottom: 0;
+            margin: 0;
+            font-size: 20px;
         }
 
         .info-box p {
             font-size: 3.5rem;
-            font-weight: 500;
+            font-weight: 400;
             margin: 0;
         }
 
@@ -131,7 +132,6 @@
             display: flex;
             align-items: center;
             margin-top: 20px;
-            background-color: white;
         }
 
         .recent-activity-title h2 {
@@ -144,6 +144,7 @@
             margin-right: 10px;
             color: #007bff;
         }
+
 
         .table {
             margin-top: 20px;
@@ -217,11 +218,11 @@
                     <h1>Dashboard</h1>
                 </div>
 
-                <div class="row mt-4">
+                <div class="row mt-4 box1">
                     <div class="col-md-4">
                         <div class="info-box blue">
                             <i class="fas fa-user-tie"></i>
-                            <h4>Supir Aktif</h4>
+                            <h4>Jumlah Supir</h4>
                             <p id="jumlah_supir">0</p>
                         </div>
                     </div>
@@ -241,7 +242,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-4">
+                <div class="row mt-4 box1">
                     <div class="col-md-6">
                         <div class="menu-box">
                             <h4><i class="fas fa-bus"></i> Perjalanan</h4>
@@ -254,7 +255,7 @@
                     </div>
                 </div>
 
-                <div class="recent-activity-title">
+                <div class="recent-activity-title box2">
                     <i class="fas fa-history"></i>
                     <h2>Recent Activity</h2>
                 </div>
