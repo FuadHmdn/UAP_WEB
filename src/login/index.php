@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['admin_id'] = $id;
                 $_SESSION['admin_name'] = $name;
 
-                echo "<script>alert('Login Berhasil. Alihkan ke dashboard...'); window.location.href = '../home/index.html?id=$id';</script>";
+                echo "<script>alert('Login Berhasil. Alihkan ke dashboard...'); window.location.href = '../home/index.php?id=$id';</script>";
                 exit;
             } else {
                 // Password salah

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penumpang</title>
+    <title>Bus</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Font Awesome CSS -->
@@ -109,22 +109,22 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="../home/index.html" class="nav-link">
+                        <a href="../home/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link">
                             Dashboard <i class="fas fa-tachometer-alt ml-auto"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../supir/index.html" class="nav-link">
+                        <a href="../supir/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link">
                             Supir <i class="fas fa-user-tie ml-auto"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../bus/index.html" class="nav-link">
+                        <a href="../bus/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link active">
                             Bus <i class="fas fa-bus ml-auto"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../penumpang/index.html" class="nav-link active">
+                        <a href="../penumpang/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link">
                             Penumpang <i class="fas fa-users ml-auto"></i>
                         </a>
                     </li>
@@ -134,7 +134,7 @@
                             Akun
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="akunDropdown">
-                            <li><a class="dropdown-item" href="../profile/index.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="../profile/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>">Profile</a></li>
                             <li><a class="dropdown-item" href="../login/index.php">Logout</a></li>
                         </ul>
                     </li>
@@ -144,25 +144,24 @@
             <!-- Main -->
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-3 ">
                 <div class="d-flex justify-content-between align-items-center mb-3" style=" margin-top: 20px;">
-                    <h2 class="title"><i class="fas fa-users"></i> Penumpang</h2>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPenumpangModal">
-                        <i class="fas fa-plus"></i> Tambah Penumpang
+                    <h2 class="title"><i class="fas fa-bus"></i> Bus</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBusModal">
+                        <i class="fas fa-plus"></i> Tambah Bus
                     </button>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead class="thead-light">
                             <tr>
-                                <th>ID</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>No Telpon</th>
-                                <th>Email</th>
-                                <th>Umur</th>
+                                <th>ID Bus</th>
+                                <th>Nomor Polisi</th>
+                                <th>Kapasitas</th>
+                                <th>Model</th>
+                                <th>Tahun Pembuatan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody id="penumpangTableBody">
+                        <tbody id="busTableBody">
 
                         </tbody>
                     </table>
@@ -175,36 +174,31 @@
         </div>
     </div>
 
-    <!-- Modal Tambah Penumpang -->
-    <div class="modal fade" id="addPenumpangModal" tabindex="-1" aria-labelledby="addPenumpangModalLabel"
-        aria-hidden="true">
+    <!-- Modal Tambah Bus -->
+    <div class="modal fade" id="addBusModal" tabindex="-1" aria-labelledby="addBusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addPenumpangModalLabel">Tambah Penumpang</h5>
+                    <h5 class="modal-title" id="addBusModalLabel">Tambah Bus</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
-                            <label for="namaPenumpang" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="namaPenumpang" name="namaPenumpang">
+                            <label for="nomorPolisi" class="form-label">Nomor Polisi</label>
+                            <input type="text" class="form-control" id="nomorPolisi" name="nomorPolisi">
                         </div>
                         <div class="mb-3">
-                            <label for="alamatPenumpang" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" id="alamatPenumpang" name="alamatPenumpang">
+                            <label for="kapasitas" class="form-label">Kapasitas</label>
+                            <input type="text" class="form-control" id="kapasitas" name="kapasitas">
                         </div>
                         <div class="mb-3">
-                            <label for="noTelponPenumpang" class="form-label">No Telpon</label>
-                            <input type="text" class="form-control" id="noTelponPenumpang" name="noTelponPenumpang">
+                            <label for="model" class="form-label">Model</label>
+                            <input type="text" class="form-control" id="model" name="model">
                         </div>
                         <div class="mb-3">
-                            <label for="noSimEmail" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="noSimEmail" name="noSimEmail">
-                        </div>
-                        <div class="mb-3">
-                            <label for="umurPenumpang" class="form-label">Umur</label>
-                            <input type="text" class="form-control" id="umurPenumpang" name="umurPenumpang">
+                            <label for="tahunPembuatan" class="form-label">Tahun Pembuatan</label>
+                            <input type="date" class="form-control" id="tahunPembuatan" name="tahunPembuatan">
                         </div>
                         <button type="submit" class="btn btn-primary">Tambah</button>
                     </form>
@@ -213,42 +207,35 @@
         </div>
     </div>
 
-    <!-- Modal Edit Penumpang -->
-    <div class="modal fade" id="editPenumpangModal" tabindex="-1" aria-labelledby="editPenumpangModalLabel"
-        aria-hidden="true">
+    <!-- Modal Edit BUS -->
+    <div class="modal fade" id="editBusModal" tabindex="-1" aria-labelledby="editBusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editPenumpangModalLabel">Edit Penumpang</h5>
+                    <h5 class="modal-title" id="editBusModalLabel">Edit Bus</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editPenumpangForm">
+                    <form id="editBusForm">
                         <div class="mb-3">
-                            <label for="editIdPenumpang" class="form-label">ID Penumpang</label>
-                            <input type="text" class="form-control" id="editIdPenumpang" name="editIdPenumpang"
-                                readonly>
+                            <label for="editIdBus" class="form-label">ID Bus</label>
+                            <input type="text" class="form-control" id="editIdBus" name="editIdBus" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="editNamaPenumpang" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="editNamaPenumpang" name="editNamaPenumpang">
+                            <label for="editNomorPolisi" class="form-label">Nomor Polisi</label>
+                            <input type="text" class="form-control" id="editNomorPolisi" name="editNomorPolisi">
                         </div>
                         <div class="mb-3">
-                            <label for="editAlamatPenumpang" class="form-label">Alamat</label>
-                            <input type="text" class="form-control" id="editAlamatPenumpang" name="editAlamatPenumpang">
+                            <label for="editKapasitas" class="form-label">Kapasitas</label>
+                            <input type="text" class="form-control" id="editKapasitas" name="editKapasitas">
                         </div>
                         <div class="mb-3">
-                            <label for="editNoTeleponPenumpang" class="form-label">No Telpon</label>
-                            <input type="text" class="form-control" id="editNoTeleponPenumpang"
-                                name="editNoTeleponPenumpang">
+                            <label for="editModel" class="form-label">Model</label>
+                            <input type="text" class="form-control" id="editModel" name="editModel">
                         </div>
                         <div class="mb-3">
-                            <label for="editEmail" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="editEmail" name="editEmail">
-                        </div>
-                        <div class="mb-3">
-                            <label for="editUmurPenumpang" class="form-label">Umur</label>
-                            <input type="text" class="form-control" id="editUmurPenumpang" name="editUmurPenumpang">
+                            <label for="editTahunPembuatan" class="form-label">Tahun Pembuatan</label>
+                            <input type="date" class="form-control" id="editTahunPembuatan" name="editTahunPembuatan">
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
@@ -257,17 +244,16 @@
         </div>
     </div>
 
-    <!-- Modal Hapus Penumpang -->
-    <div class="modal fade" id="deletePenumpangModal" tabindex="-1" aria-labelledby="deletePenumpangModalLabel"
-        aria-hidden="true">
+    <!-- Modal Hapus BUS -->
+    <div class="modal fade" id="deleteBusModal" tabindex="-1" aria-labelledby="deleteBusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deletePenumpangModalLabel">Delete Penumpang</h5>
+                    <h5 class="modal-title" id="deleteBusModalLabel">Delete Bus</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Apakah Anda yakin ingin menghapus data penumpang ini?</p>
+                    <p>Apakah Anda yakin ingin menghapus data bus ini?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -284,38 +270,37 @@
     <script>
         // menampilkan data
         document.addEventListener('DOMContentLoaded', function () {
-            fetch('http://localhost/UAP_WEB/database/penumpang/getAll.php')
+            fetch('http://localhost/UAP_WEB/database/bus/getAll.php')
                 .then(response => response.json())
                 .then(data => {
-                    const penumpangTableBody = document.getElementById('penumpangTableBody');
-                    data.forEach(penumpang => {
+                    const busTableBody = document.getElementById('busTableBody');
+                    data.forEach(bus => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                                <td>${penumpang.id_penumpang}</td>
-                                <td>${penumpang.nama}</td>
-                                <td>${penumpang.alamat}</td>
-                                <td>${penumpang.nomor_telepon}</td>
-                                <td>${penumpang.email}</td>
-                                <td>${penumpang.umur}</td>
+                                <td>${bus.id_bus}</td>
+                                <td>${bus.nomor_polisi}</td>
+                                <td>${bus.kapasitas}</td>
+                                <td>${bus.model}</td>
+                                <td>${bus.tahun_pembuatan}</td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editPenumpangModal" onclick="editPenumpang(${penumpang.id_penumpang}, '${penumpang.nama}', '${penumpang.alamat}', '${penumpang.nomor_telepon}', '${penumpang.email}', ${penumpang.umur})">
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editBusModal" onclick="editBus(${bus.id_bus}, '${bus.nomor_polisi}', '${bus.kapasitas}', '${bus.model}', '${bus.tahun_pembuatan}')">
                                         <i class="fas fa-edit"></i> Edit
                                     </button>
-                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePenumpangModal" onclick="deletePenumpang(${penumpang.id_penumpang})">
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteBusModal" onclick="deleteBus(${bus.id_bus})">
                                         <i class="fas fa-trash"></i> Hapus
                                     </button>
                                 </td>
                             `;
-                        penumpangTableBody.appendChild(row);
+                        busTableBody.appendChild(row);
                     });
                 })
                 .catch(error => console.error('Error fetching data:', error));
         });
 
         // hapus data
-        function deletePenumpang(id_penumpang) {
-            document.getElementById('deletePenumpangModal').querySelector('.hapus').onclick = function () {
-                fetch(`http://localhost/UAP_WEB/database/penumpang/deletePenumpang.php?id_penumpang=${id_penumpang}`, {
+        function deleteBus(id_bus) {
+            document.getElementById('deleteBusModal').querySelector('.hapus').onclick = function () {
+                fetch(`http://localhost/UAP_WEB/database/bus/deleteBus.php?id_bus=${id_bus}`, {
                     method: 'DELETE'
                 })
                     .then(response => {
@@ -330,11 +315,11 @@
         }
 
         // Edit data
-        document.getElementById('editPenumpangForm').addEventListener('submit', function (event) {
+        document.getElementById('editBusForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
             const formData = new FormData(this);
-            const url = 'http://localhost/UAP_WEB/database/penumpang/editPenumpang.php';
+            const url = 'http://localhost/UAP_WEB/database/bus/editBus.php';
 
             fetch(url, {
                 method: 'POST',
@@ -350,22 +335,21 @@
                 })
                 .catch(error => console.error('Error:', error));
         });
-        function editPenumpang(id, nama, alamat, nomor_telepon, email, umur) {
-            document.getElementById('editIdPenumpang').value = id;
-            document.getElementById('editNamaPenumpang').value = nama;
-            document.getElementById('editAlamatPenumpang').value = alamat;
-            document.getElementById('editNoTeleponPenumpang').value = nomor_telepon;
-            document.getElementById('editEmail').value = email;
-            document.getElementById('editUmurPenumpang').value = umur;
+        function editBus(id, nomor_polisi, kapasitas, model, tahun_pembuatan) {
+            document.getElementById('editIdBus').value = id;
+            document.getElementById('editNomorPolisi').value = nomor_polisi;
+            document.getElementById('editKapasitas').value = kapasitas;
+            document.getElementById('editModel').value = model;
+            document.getElementById('editTahunPembuatan').value = tahun_pembuatan;
         }
 
 
-        // Tambah penumpang
-        document.getElementById('addPenumpangModal').querySelector('form').addEventListener('submit', function (event) {
+        // Tambah Bus
+        document.getElementById('addBusModal').querySelector('form').addEventListener('submit', function (event) {
             event.preventDefault();
             const formData = new FormData(this);
 
-            fetch('http://localhost/UAP_WEB/database/penumpang/addPenumpang.php', {
+            fetch('http://localhost/UAP_WEB/database/bus/addBus.php', {
                 method: 'POST',
                 body: formData
             })
@@ -374,7 +358,7 @@
                     if (data.success) {
                         location.reload();
                     } else {
-                        alert('Gagal menambah penumpang: ' + (data.message || 'Unknown error'));
+                        alert('Gagal menambah bus: ' + (data.message || 'Unknown error'));
                     }
                 })
                 .catch(error => console.error('Error adding data:', error));
@@ -394,33 +378,31 @@
                 const endIndex = startIndex + itemsPerPage;
                 const paginatedData = data.slice(startIndex, endIndex);
 
-                const penumpangTableBody = document.getElementById('penumpangTableBody');
+                const penumpangTableBody = document.getElementById('busTableBody');
                 penumpangTableBody.innerHTML = '';
 
-                paginatedData.forEach(penumpang => {
+                paginatedData.forEach(bus => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
-                <td>${penumpang.id_penumpang}</td>
-                <td>${penumpang.nama}</td>
-                <td>${penumpang.alamat}</td>
-                <td>${penumpang.nomor_telepon}</td>
-                <td>${penumpang.email}</td>
-                <td>${penumpang.umur}</td>
-                <td>
-                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editPenumpangModal" onclick="editPenumpang(${penumpang.id_penumpang}, '${penumpang.nama}', '${penumpang.alamat}', '${penumpang.nomor_telepon}', '${penumpang.email}', ${penumpang.umur})">
-                        <i class="fas fa-edit"></i> Edit
-                    </button>
-                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deletePenumpangModal" onclick="deletePenumpang(${penumpang.id_penumpang})">
-                        <i class="fas fa-trash"></i> Hapus
-                    </button>
-                </td>
-            `;
+                                <td>${bus.id_bus}</td>
+                                <td>${bus.nomor_polisi}</td>
+                                <td>${bus.kapasitas}</td>
+                                <td>${bus.model}</td>
+                                <td>${bus.tahun_pembuatan}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editBusModal" onclick="editBus(${bus.id_bus}, '${bus.nomor_polisi}', '${bus.kapasitas}', '${bus.model}', '${bus.tahun_pembuatan}')">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteBusModal" onclick="deleteBus(${bus.id_bus})">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </td>`;
                     penumpangTableBody.appendChild(row);
                 });
             }
 
             // Fetch data dari server
-            fetch('http://localhost/UAP_WEB/database/penumpang/getAll.php')
+            fetch('http://localhost/UAP_WEB/database/bus/getAll.php')
                 .then(response => response.json())
                 .then(responseData => {
                     data = responseData;

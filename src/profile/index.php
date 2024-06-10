@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body,
@@ -54,7 +53,8 @@
             width: 32px;
             height: 32px;
             bottom: 12px;
-            right: 18px;;
+            right: 18px;
+            ;
             background: rgba(0, 0, 0, 0.7);
             color: white;
             border-radius: 50%;
@@ -71,7 +71,7 @@
 </head>
 
 <body>
-    <a href="../home/index.html" class="btn btn-primary back-button"><i class="fas fa-arrow-left"></i> Back</a>
+    <a href="../home/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="btn btn-primary back-button"><i class="fas fa-arrow-left"></i> Back</a>
     <div class="container-fluid">
         <div class="profile-container">
             <div class="text-center">
@@ -88,60 +88,76 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="userId" class="form-label">ID</label>
-                            <input type="text" class="form-control" id="userId" value="12345" readonly>
+                            <input type="text" class="form-control" id="userId" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="userName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="userName" value="John Doe" disabled>
+                            <input type="text" class="form-control" id="userName" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="userEmail" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="userEmail" value="john.doe@example.com"
-                                disabled>
+                            <input type="email" class="form-control" id="userEmail" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="userPhone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" id="userPhone" value="123-456-7890" disabled>
+                            <input type="text" class="form-control" id="userPhone" disabled>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label for="userAddress" class="form-label">Address</label>
-                            <textarea class="form-control" id="userAddress" rows="2"
-                                disabled>123 Main St, Anytown, USA</textarea>
+                            <textarea class="form-control" id="userAddress" rows="2" disabled></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="button" class="btn btn-primary w-50" id="editButton"
-                        onclick="enableEditing()">Edit</button>
-                    <button type="submit" class="btn btn-success w-50" id="saveButton"
-                        style="display: none;">Save</button>
+                    <button type="button" class="btn btn-primary w-50" id="editButton" onclick="enableEditing()">Edit</button>
+                    <button type="submit" class="btn btn-success w-50" id="saveButton" style="display: none;">Save</button>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
-        function updateProfilePicture(event) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const img = document.getElementById('profileImg');
-                img.src = reader.result;
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateProfilePicture(event) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const img = document.getElementById('profileImg');
+                    img.src = reader.result;
+                }
+                reader.readAsDataURL(event.target.files[0]);
             }
-            reader.readAsDataURL(event.target.files[0]);
-        }
 
-        function enableEditing() {
-            document.getElementById('userName').disabled = false;
-            document.getElementById('userEmail').disabled = false;
-            document.getElementById('userPhone').disabled = false;
-            document.getElementById('userAddress').disabled = false;
-            document.getElementById('editButton').style.display = 'none';
-            document.getElementById('saveButton').style.display = 'block';
-        }
+            function enableEditing() {
+                document.getElementById('userName').disabled = false;
+                document.getElementById('userEmail').disabled = false;
+                document.getElementById('userPhone').disabled = false;
+                document.getElementById('userAddress').disabled = false;
+                document.getElementById('editButton').style.display = 'none';
+                document.getElementById('saveButton').style.display = 'block';
+            }
+
+            function fetchProfileData() {
+                fetch(`http://localhost/UAP_WEB/database/getAdminById.php?id=<?php echo htmlspecialchars($_GET['id']); ?>`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('userId').value = data.id;
+                        document.getElementById('userName').value = data.name;
+                        document.getElementById('userEmail').value = data.email;
+                        document.getElementById('userPhone').value = data.phone;
+                        document.getElementById('userAddress').value = data.address;
+                    })
+                    .catch(error => console.error('Error fetching profile data:', error));
+            }
+
+            window.updateProfilePicture = updateProfilePicture;
+
+            window.enableEditing = enableEditing;
+            fetchProfileData();
+        });
     </script>
 </body>
 

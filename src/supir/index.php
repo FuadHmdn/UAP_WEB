@@ -159,22 +159,22 @@
                 </div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="../home/index.html" class="nav-link">
+                        <a href="../home/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link">
                             Dashboard <i class="fas fa-tachometer-alt ml-auto"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../supir/index.html" class="nav-link active">
+                        <a href="../supir/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link active">
                             Supir <i class="fas fa-user-tie ml-auto"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../bus/index.html" class="nav-link">
+                        <a href="../bus/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link">
                             Bus <i class="fas fa-bus ml-auto"></i>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="../penumpang/index.html" class="nav-link">
+                        <a href="../penumpang/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="nav-link">
                             Penumpang <i class="fas fa-users ml-auto"></i>
                         </a>
                     </li>
@@ -184,7 +184,7 @@
                             Akun
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="akunDropdown">
-                            <li><a class="dropdown-item" href="../profile/index.html">Profile</a></li>
+                            <li><a class="dropdown-item" href="../profile/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>">Profile</a></li>
                             <li><a class="dropdown-item" href="../login/index.php">Logout</a></li>
                         </ul>
                     </li>

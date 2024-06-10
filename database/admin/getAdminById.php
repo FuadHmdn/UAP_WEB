@@ -1,21 +1,26 @@
 <?php
 
-require_once ('../koneksi.php');
+require_once('../koneksi.php');
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $sql = "SELECT * FROM `admin` WHERE id=";
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+
+    $sql = "SELECT * FROM `admin` WHERE id = $id";
 
     $result = mysqli_query($connection, $sql);
 
-    if (mysqli_num_rows($result) > 0) {
-        $response = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $response[] = $row;
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            $response = mysqli_fetch_assoc($result);
+            echo json_encode($response);
+        } else {
+            echo json_encode(array('message' => 'No data found'));
         }
-        echo json_encode($response);
     } else {
-        echo json_encode(array('message' => 'Belum ada data'));
+        echo json_encode(array('message' => 'Query failed: ' . mysqli_error($connection)));
     }
+} else {
+    echo json_encode(array('message' => 'Invalid request'));
 }
 
 mysqli_close($connection);
