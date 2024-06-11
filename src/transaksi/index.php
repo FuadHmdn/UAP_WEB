@@ -97,6 +97,7 @@
             <!-- Main -->
             <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-4 mt-3">
                 <div class="d-flex justify-content-between align-items-center mb-3" style=" margin-top: 20px;">
+                    <a href="../home/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back</a>
                     <h2 class="title"><i class="fas fa-user-tie"></i> Transaksi</h2>
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTransaksiModal">
                         <i class="fas fa-plus"></i> Tambah Transaksi

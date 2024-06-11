@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Proses upload foto profil
-    $target_dir = "../../../image/upload/";
+    $target_dir = "../../image/upload/";
     $target_file = $target_dir . basename($_FILES["profile_picture"]["name"]);
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     $check = getimagesize($_FILES["profile_picture"]["tmp_name"]);

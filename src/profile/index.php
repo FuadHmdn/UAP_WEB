@@ -114,6 +114,7 @@
                 <div class="text-center">
                     <button type="button" class="btn btn-primary w-50" id="editButton" onclick="enableEditing()">Edit</button>
                     <button type="button" class="btn btn-success w-50" id="saveButton" style="display: none;" onclick="saveProfile()">Save</button>
+                    <button type="button" class="btn btn-danger w-50 mt-3" id="deleteButton" onclick="deleteAccount()">Delete Account</button>
                 </div>
             </form>
         </div>
@@ -197,6 +198,27 @@
 
             fetchProfileData();
         });
+    </script>
+
+    <script>
+        function deleteAccount() {
+            const userId = document.getElementById('userId').value;
+            if (confirm('Are you sure you want to delete your account?')) {
+                fetch(`http://localhost/UAP_WEB/database/admin/deleteAccountAdmin.php?id=<?php echo htmlspecialchars($_GET['id']); ?>`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Account deleted successfully');
+                            window.location.href = '../login/index.php';
+                        } else {
+                            alert('Error deleting account: ' + data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error deleting account:', error));
+            }
+        }
     </script>
 </body>
 
