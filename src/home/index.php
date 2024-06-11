@@ -5,14 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #FAF6F6;
+            background-color: #F5F5F6;
         }
 
         .sidebar {
@@ -97,7 +96,7 @@
 
         .info-box p {
             font-size: 3.5rem;
-            font-weight: 400;
+            font-weight: 600;
             margin: 0;
         }
 
@@ -199,8 +198,7 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="akunDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="akunDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Akun
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="akunDropdown">
@@ -244,45 +242,42 @@
 
                 <div class="row mt-4 box1">
                     <div class="col-md-6">
-                        <div class="menu-box">
+                        <div class="menu-box" id="perjalanan">
                             <h4><i class="fas fa-bus"></i> Perjalanan</h4>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="menu-box">
+                        <div class="menu-box" id="transaksi">
                             <h4><i class="fas fa-receipt"></i> Transaksi</h4>
                         </div>
                     </div>
-                </div>
 
-                <div class="recent-activity-title box2">
-                    <i class="fas fa-history"></i>
-                    <h2>Recent Activity</h2>
-                </div>
+                    <div class="recent-activity-title box2">
+                        <i class="fas fa-history"></i>
+                        <h2>Recent Activity</h2>
+                    </div>
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Email/Phone/No Polisi</th>
-                            <th scope="col">Joined</th>
-                            <th scope="col">Type</th>
-                        </tr>
-                    </thead>
-                    <tbody id="activityTableBody">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Email/Phone/No Polisi</th>
+                                <th scope="col">Joined</th>
+                                <th scope="col">Type</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityTableBody">
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
             </main>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             fetch('http://localhost/UAP_WEB/database/dashboard/getData.php')
                 .then(response => response.json())
                 .then(data => {
@@ -310,6 +305,16 @@
                 })
                 .catch(error => console.error('Error fetching recent activities:', error));
         });
+    </script>
+
+    <script>
+        document.getElementById('perjalanan').onclick = function() {
+            window.location.href = '../perjalanan/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>';
+        };
+
+        document.getElementById('transaksi').onclick = function() {
+            window.location.href = '../transaksi/index.php?id=<?php echo htmlspecialchars($_GET['id']); ?>';
+        };
     </script>
 
 </body>
