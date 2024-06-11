@@ -119,7 +119,7 @@ mysqli_close($connection);
             </div>
 
             <div class="signup-link">
-                <p>Don't have an account? <a href="register/index.php">Sign Up</a></p>
+                <p>Don't have an account? <a href="../register/index.php">Sign Up</a></p>
             </div>
         </form>
     </div>

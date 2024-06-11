@@ -1,5 +1,5 @@
 <?php
-require_once('../../../database/koneksi.php');
+require_once('../../database/koneksi.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $target_file)) {
             $profile_picture = $target_file;
         } else {
-            echo "<script>alert('Maaf, ada kesalahan saat mengupload foto.'); window.history.back();</script>";
+            echo "<script>alert('Maaf, ada kesalahan saat mengupload foto.')";
             exit;
         }
     } else {
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_bind_param($stmt, "ssssss", $name, $email, $password, $phone, $address, $profile_picture);
 
         if (mysqli_stmt_execute($stmt)) {
-            echo "<script>alert('Registrasi Berhasil. Alihkan ke halaman login...'); window.location.href = '../index.php';</script>";
+            echo "<script>alert('Registrasi Berhasil. Alihkan ke halaman login...'); window.location.href = '../login/index.php';</script>";
             exit;
         } else {
             echo "<script>alert('Error: " . mysqli_error($connection) . "'); window.history.back();</script>";
@@ -179,7 +179,7 @@ mysqli_close($connection);
             </div>
         </form>
         <div class="login-link">
-            <p>Already have an account? <a href="../index.php">Login</a></p>
+            <p>Already have an account? <a href="../login/index.php">Login</a></p>
         </div>
     </div>
 
